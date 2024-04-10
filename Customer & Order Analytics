@@ -21,6 +21,7 @@ WHERE length(orderid) = 6
 AND orderid <> 'Order ID';
 
 --Which product was the cheapest one sold in January, and what was the price?
+--Used different wasys to get the same data
 SELECT distinct Product
 FROM BIT_DB.JanSales
 WHERE price in(SELECT min(price) FROM BIT_DB.JanSales);
@@ -64,3 +65,9 @@ ON Feb.orderid = cust.order_id
 WHERE Feb.Quantity>2
 AND length(orderid)=6
 AND orderid <> 'Order ID';
+
+--List all the products sold in Los Angeles in February, and include how many of each were sold.
+SELECT Product, SUM(quantity)
+FROM BIT_DB.FebSales
+WHERE location like '%Los Angeles%'
+GROUP BY Product

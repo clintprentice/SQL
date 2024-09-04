@@ -1,7 +1,7 @@
 /*
 Using BigQuery and BigQuery public data. Practicing subqueries on the Google Data Analytics Certificate Course
 */
-
+ 
 /*
 Write a query that returns a table containing two columns: the station_id and name(from the citibike_stations table) of only those stations that were used by people classified as subscribers, which is information found in the citibike_trips table
 */

@@ -56,3 +56,32 @@ SELECT
 		AVG(num_bikes_available)
 	FROM bigquery-public-data.new_york.citibike_stations) AS avg_num_bikes_available
 FROM bigquery-public-data.new_york.citibike_stations;
+
+/* Compare the average trip duration per station to the overall average trip duration
+from all stations. This will provide insights about how long people typically use the bikes that they get
+from a particular station in comparison to the overall average.*/
+
+SELECT
+  starttime,
+  start_station_id,
+  tripduration,
+  (
+      SELECT
+        ROUND(AVG(tripduration),2)
+      FROM
+        bigquery-public-data.new_york_citibike.citibike_trips
+      WHERE
+        start_station_id = outer_trips.start_station_id ) AS avg_duration_for_station,
+  ROUND(tripduration - (
+      SELECT
+        AVG(tripduration)
+      FROM
+        bigquery-public-data.new_york_citibike.citibike_trips
+      WHERE
+        start_station_id = outer_trips.start_station_id), 2) AS difference_from_avg
+FROM
+  bigquery-public-data.new_york_citibike.citibike_trips AS outer_trips
+ORDER BY
+  difference_from_avg DESC
+LIMIT
+  25; 

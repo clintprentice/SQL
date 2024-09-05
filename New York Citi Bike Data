@@ -1,12 +1,12 @@
 /*
-Using BigQuery and BigQuery public data. Practicing subqueries on the Google Data Analytics Certificate Course
+Using BigQuery and BigQuery public data for New York Citibikes.
 */
  
 /*
 Write a query that returns a table containing two columns: the station_id and name(from the citibike_stations table) of only those stations that were used by people classified as subscribers, which is information found in the citibike_trips table
 */
 SELECT
-	station_id,
+station_id,
 	name
 FROM
 	bigquery-public-data.new_york.citibike_stations
@@ -22,7 +22,9 @@ WHERE
   	);
 
 /*
-Use the citibike_trips table to calculate the total number of rides that started at each station and return this as a column called number_of_rides_starting_at_station along with the columns station_id and name from the citibikes_stations table.
+Use the citibike_trips table to calculate the total number of rides that started at each station 
+and return this as a column called number_of_rides_starting_at_station along with the columns 
+station_id and name from the citibikes_stations table.
 */
 SELECT 
 	station_id,
@@ -47,7 +49,8 @@ FROM
 		number_of_rides DESC;
 
 /*
-Compare the number of bikes available at a particular station to the overall average number of bikes available at all stations
+Compare the number of bikes available at a particular station to the overall 
+average number of bikes available at all stations
 */
 SELECT
 	station_id,
@@ -87,7 +90,8 @@ LIMIT
   25; 
 
 /*
-Compose a new query to filter the data to include only the trips from the five stations with the longest mean trip duration
+Compose a new query to filter the data to include only the trips from the five stations with the 
+longest mean trip duration
 */
 SELECT
     tripduration,
@@ -108,3 +112,19 @@ WHERE start_station_id IN
         ORDER BY avg_duration DESC
         LIMIT 5
     );
+
+/*
+Find how many rides people took on these bikes per year.
+Note: starttime is listed as full date and time in Hours:Minutes:Seconds:Miliseconds.
+Only wanting the year means using the EXTRACT function.
+*/
+
+SELECT
+  EXTRACT(YEAR FROM starttime) AS year,
+  COUNT(*) AS number_of_rides
+FROM
+  bigquery-public-data.new_york_citibike.citibike_trips
+GROUP BY
+  year
+ORDER BY
+  year DESC;

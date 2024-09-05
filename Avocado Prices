@@ -1,5 +1,5 @@
 /*
-This dataset is publicly available as Avocado Prices from Kaggle.
+This dataset is publicly available as Avocado Prices from Kaggle. https://www.kaggle.com/datasets/neuromusic/avocado-prices
 This data has been made available by Justin Kiggins under an Open Data Commons license.
 
 I used BigQuery to upload the .csv to a dataset for my SQL Queries
